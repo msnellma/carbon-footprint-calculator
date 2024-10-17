@@ -8,6 +8,8 @@ import com.poc.carbon_footprint_calculator.repository.FoodRepository;
 import com.poc.carbon_footprint_calculator.repository.TravelRepository;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @Service
 public class CarbonCalculatorService {
