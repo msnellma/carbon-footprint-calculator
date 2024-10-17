@@ -16,7 +16,7 @@ import com.poc.carbon_footprint_calculator.models.Person;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+// @RequestMapping("/api")
 public class HelloWorldController {
 
     @Autowired
