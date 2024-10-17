@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.poc.carbon_footprint_calculator.models.Consumption;
 import com.poc.carbon_footprint_calculator.models.Food;
+import com.poc.carbon_footprint_calculator.models.ModelsReceived;
 import com.poc.carbon_footprint_calculator.models.Travel;
 import com.poc.carbon_footprint_calculator.repository.ConsumptionRepository;
 import com.poc.carbon_footprint_calculator.repository.FoodRepository;
@@ -34,6 +35,17 @@ public class CarbonCalculatorService {
 
     public List<Consumption> getAllConsumptions() {
         return consumptionRepository.findAll();
+    }
+
+    public int calculateCost(ModelsReceived models) {
+        // Example calculation logic
+        int foodImpact = models.getFood() * 10; // Example calculation
+        int consumptionImpact = models.getConsumption() * 20; // Example calculation
+        int travelImpact = models.getTravel() * 30; // Example calculation
+
+        // Sum up the impacts
+        int totalImpact = foodImpact + consumptionImpact + travelImpact;
+        return totalImpact;
     }
 
 }

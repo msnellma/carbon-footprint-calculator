@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
+import Button from "@mui/material/Button";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useEffect, useState } from "react";
 
@@ -33,6 +34,8 @@ function App() {
 
   const [travels, setTravels] = useState<Travel[]>([]);
   const [travel, setTravel] = useState<string>("");
+
+  const [result, setResult] = useState<number>(0);
 
   const baseUrl = "http://localhost:8080";
 
@@ -69,6 +72,25 @@ function App() {
     setTravel(event.target.value as string);
   };
 
+  const handleClick = () => {
+    //Post saved values from select to backend
+    console.log("Food: ", food);
+    fetch(baseUrl + "/api/calculate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        food: parseInt(food),
+        consumption: parseInt(consumption),
+        travel: parseInt(travel),
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => setResult(data))
+      .catch((error) => console.error("Error calculating impact:", error));
+  };
+
   return (
     <>
       <div
@@ -91,7 +113,7 @@ function App() {
                 onChange={handleChangeFood}
               >
                 {foods.map((food) => (
-                  <MenuItem key={food.id} value={food.id.toString()}>
+                  <MenuItem key={food.id} value={food.cost}>
                     {food.category}
                   </MenuItem>
                 ))}
@@ -110,10 +132,7 @@ function App() {
                 onChange={handleChangeConsumption}
               >
                 {consumptions.map((consumption) => (
-                  <MenuItem
-                    key={consumption.id}
-                    value={consumption.id.toString()}
-                  >
+                  <MenuItem key={consumption.id} value={consumption.cost}>
                     {consumption.category}
                   </MenuItem>
                 ))}
@@ -132,7 +151,7 @@ function App() {
                 onChange={handleChangeTravel}
               >
                 {travels.map((travel) => (
-                  <MenuItem key={travel.id} value={travel.id.toString()}>
+                  <MenuItem key={travel.id} value={travel.cost}>
                     {travel.category}
                   </MenuItem>
                 ))}
@@ -140,9 +159,10 @@ function App() {
             </FormControl>
           </Box>
         </div>
-        <h2>
-          You have X times better/worse CO2 emissions than the average person.
-        </h2>
+        <Button variant="contained" onClick={handleClick}>
+          Calculate Impact
+        </Button>
+        <h2>You have used {result} kg of CO2 today</h2>
       </div>
     </>
   );

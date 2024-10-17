@@ -36,5 +36,4 @@ public class Food {
     public void setCategory(String category) {
         this.category = category;
     }
-
 }
