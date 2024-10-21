@@ -10,8 +10,17 @@ public class Food {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private String category;
+    private String category; // Protein, Carbs, Fat, Vegetables
+    private String foodItem; 
     private int cost;
+
+    public void setFoodItem(String item) {
+        this.foodItem = item;
+    }
+
+    public String getFoodItem() {
+        return this.foodItem;
+    }
 
     public int getCost() {
         return cost;

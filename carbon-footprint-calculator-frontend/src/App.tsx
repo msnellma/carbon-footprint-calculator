@@ -6,11 +6,13 @@ import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useEffect, useState } from "react";
+import FoodItemDropdown from "./components/FoodItemDropdown";
 
 interface Food {
   id: number;
   cost: number;
   category: string;
+  foodItem: string;
 }
 
 interface Consumption {
@@ -26,9 +28,6 @@ interface Travel {
 }
 
 function App() {
-  const [foods, setFoods] = useState<Food[]>([]);
-  const [food, setFood] = useState<string>("");
-
   const [consumptions, setConsumptions] = useState<Consumption[]>([]);
   const [consumption, setConsumption] = useState<string>("");
 
@@ -39,10 +38,12 @@ function App() {
 
   const baseUrl = "http://localhost:8080";
 
+  var foods: Food[];
+
   useEffect(() => {
     fetch(baseUrl + "/api/food")
       .then((response) => response.json())
-      .then((data: Food[]) => setFoods(data))
+      .then((data: Food[]) => {foods = data})
       .catch((error) => console.error("Error fetching food data:", error));
   }, []);
 
@@ -60,10 +61,6 @@ function App() {
       .catch((error) => console.error("Error fetching food data:", error));
   }, []);
 
-  const handleChangeFood = (event: SelectChangeEvent<string>) => {
-    setFood(event.target.value as string);
-  };
-
   const handleChangeConsumption = (event: SelectChangeEvent<string>) => {
     setConsumption(event.target.value as string);
   };
@@ -72,24 +69,24 @@ function App() {
     setTravel(event.target.value as string);
   };
 
-  const handleClick = () => {
-    //Post saved values from select to backend
-    console.log("Food: ", food);
-    fetch(baseUrl + "/api/calculate", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        food: parseInt(food),
-        consumption: parseInt(consumption),
-        travel: parseInt(travel),
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => setResult(data))
-      .catch((error) => console.error("Error calculating impact:", error));
-  };
+  // const handleClick = () => {
+  //   //Post saved values from select to backend
+  //   console.log("Food: ", food);
+  //   fetch(baseUrl + "/api/calculate", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       food: parseInt(food),
+  //       consumption: parseInt(consumption),
+  //       travel: parseInt(travel),
+  //     }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => setResult(data))
+  //     .catch((error) => console.error("Error calculating impact:", error));
+  // };
 
   return (
     <>
@@ -102,24 +99,8 @@ function App() {
         }}
       >
         <h1>What have you done today?</h1>
-        <div style={{ margin: "10px 0" }}>
-          <Box sx={{ minWidth: 200 }}>
-            <FormControl fullWidth>
-              <InputLabel>Food</InputLabel>
-              <Select
-                id="select-food"
-                value={food}
-                label="Food"
-                onChange={handleChangeFood}
-              >
-                {foods.map((food) => (
-                  <MenuItem key={food.id} value={food.cost}>
-                    {food.category}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Box>
+        <div style={{ margin: "10px 0", display: "flex", flexDirection: "row" }}>
+          <FoodItemDropdown data={foods}/>
         </div>
         <div style={{ margin: "10px 0" }}>
           <Box sx={{ minWidth: 200 }}>

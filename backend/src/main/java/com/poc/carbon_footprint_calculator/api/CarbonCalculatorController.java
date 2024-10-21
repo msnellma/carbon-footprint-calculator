@@ -18,9 +18,9 @@ import com.poc.carbon_footprint_calculator.service.CarbonCalculatorService;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5173") // Put as environment variable in application.properties
 public class CarbonCalculatorController {
-
+    // Self-explanatory/descriptive endpoints
     @Autowired
     private CarbonCalculatorService service;
 
@@ -39,7 +39,7 @@ public class CarbonCalculatorController {
         return service.getAllConsumptions();
     }
 
-     @PostMapping("/calculate")
+    @PostMapping("/calculate")
     public int calculateCost(@RequestBody ModelsReceived models) {
         return service.calculateCost(models);
     }
