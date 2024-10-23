@@ -8,7 +8,10 @@ import {
   Button,
   SelectChangeEvent,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import FoodItemDropdown from "../components/FoodItemDropdown";
+import AddedItem from "../components/AddedItem";
+import "../App.css";
 
 interface Food {
   id: number;
@@ -29,9 +32,15 @@ interface Travel {
   category: string;
 }
 
+interface Item {
+  foodItem: string;
+  kg: number | string;
+}
+
 const FrontPage: React.FC = () => {
   const [food, setFood] = useState<Food[]>([]);
   const [selectedFood, setSelectedFood] = useState<Food>();
+  const [items, setItems] = useState<Item[]>([]);
 
   const [consumptions, setConsumptions] = useState<Consumption[]>([]);
   const [consumption, setConsumption] = useState<string>("");
@@ -92,25 +101,26 @@ const FrontPage: React.FC = () => {
       .then((data) => setResult(data))
       .catch((error) => console.error("Error calculating impact:", error));
   };
-
   return (
-    <>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          padding: "20px",
-        }}
-      >
-        <h1>What have you done today?</h1>
-        <div
-          style={{ margin: "10px 0", display: "flex", flexDirection: "row" }}
-        >
-          <FoodItemDropdown data={food} setSelectedFood={setSelectedFood} />
-        </div>
-        <div style={{ margin: "10px 0" }}>
-          <Box sx={{ minWidth: 200 }}>
+    <Grid
+      container
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      size={12}
+      sx={{ minWidth: "100vh", padding: 2 }}
+    >
+      <h1 style={{ textAlign: "center" }}>What have you done today?</h1>
+      {/* <Grid container direction="row" size={12}> */}
+      <Grid container direction="row" spacing={2} sx={{ width: "100%" }}>
+        {/* <Grid size={6}> */}
+        <Grid size={{ xs: 6, md: 6 }}>
+          <FoodItemDropdown
+            data={food}
+            setSelectedFood={setSelectedFood}
+            setItems={setItems}
+          />
+          <Box sx={{ width: 100, margin: 2 }}>
             <FormControl fullWidth>
               <InputLabel>Consumption</InputLabel>
               <Select
@@ -127,9 +137,7 @@ const FrontPage: React.FC = () => {
               </Select>
             </FormControl>
           </Box>
-        </div>
-        <div style={{ margin: "10px 0" }}>
-          <Box sx={{ minWidth: 200 }}>
+          <Box sx={{ width: 100, margin: 2 }}>
             <FormControl fullWidth>
               <InputLabel>Travel</InputLabel>
               <Select
@@ -146,13 +154,22 @@ const FrontPage: React.FC = () => {
               </Select>
             </FormControl>
           </Box>
-        </div>
+        </Grid>
+        {/* <Grid size={6} justifyContent="right"> */}
+        <Grid size={{ xs: 6, md: 6 }}>
+          <AddedItem items={items} setItems={setItems} />
+        </Grid>
+      </Grid>
+
+      <Box sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}>
         <Button variant="contained" onClick={handleClick}>
           Calculate Impact
         </Button>
-        <h2>You have used {result} kg of CO2 today</h2>
-      </div>
-    </>
+      </Box>
+      <h2 style={{ textAlign: "center" }}>
+        You have used {result} kg of CO2 today
+      </h2>
+    </Grid>
   );
 };
 

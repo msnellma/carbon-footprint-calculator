@@ -1,14 +1,16 @@
-// import "./App.css";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Button from "@mui/material/Button";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { useEffect, useState } from "react";
-import { SetStateAction } from "react";
-import { Dispatch } from "react";
+import {
+  Box,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Button,
+  SelectChangeEvent,
+} from "@mui/material";
+import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import TextField from "@mui/material/TextField";
+import "../App.css";
 
 interface Food {
   id: number;
@@ -20,14 +22,19 @@ interface Food {
 interface FoodItemDropdownProps {
   data: Food[];
   setSelectedFood: Dispatch<SetStateAction<Food | undefined>>;
+  setItems: Dispatch<
+    SetStateAction<Array<{ foodItem: string; kg: number | string }>>
+  >;
 }
 
 export default function FoodItemDropdown({
   data,
   setSelectedFood,
+  setItems,
 }: FoodItemDropdownProps) {
   const [food, setFood] = useState<string>("");
   const [foodItem, setFoodItem] = useState<string>("");
+  const [kg, setKg] = useState<number | string>("");
 
   const handleChangeFood = (event: SelectChangeEvent<string>) => {
     setFood(event.target.value);
@@ -39,19 +46,23 @@ export default function FoodItemDropdown({
     const selectedFoodObject = data.find(
       (item) => item.foodItem === event.target.value
     );
-    // console.log(selectedFoodObject);
     setSelectedFood(selectedFoodObject);
   };
-
-  const [kg, setKg] = useState<number | string>("");
 
   const handleKgChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setKg(event.target.value);
   };
 
+  const handleAddItem = () => {
+    if (foodItem && kg !== "") {
+      setItems((prevItems) => [...prevItems, { foodItem, kg }]); // Update items in parent
+      setKg(""); // Reset kg input after adding
+    }
+  };
+
   return (
-    <>
-      <Box sx={{ minWidth: 100, margin: 2 }}>
+    <Box display="flex" flexDirection="row" alignItems="center">
+      <Box sx={{ width: 100, margin: 2 }}>
         <FormControl fullWidth>
           <InputLabel>Food</InputLabel>
           <Select
@@ -77,7 +88,7 @@ export default function FoodItemDropdown({
             <FormControl fullWidth>
               <InputLabel>{food}</InputLabel>
               <Select
-                id="select-food"
+                id="select-food-item"
                 value={foodItem}
                 label="Food"
                 onChange={handleChangeFoodItem}
@@ -92,13 +103,14 @@ export default function FoodItemDropdown({
               </Select>
             </FormControl>
           </Box>
-          <Box sx={{ width: 100, margin: 2 }}>
+          <Box sx={{ margin: 2 }}>
             <TextField
               label="Kg"
               type="number"
               value={kg}
               onChange={handleKgChange}
               fullWidth
+              sx={{ width: 70 }}
             />
           </Box>
           {kg !== "" && (
@@ -106,12 +118,13 @@ export default function FoodItemDropdown({
               variant="contained"
               color="primary"
               sx={{ width: 20, margin: 2 }}
+              onClick={handleAddItem}
             >
               <span className="material-symbols-outlined small-icon">add</span>
             </Button>
           )}
         </>
       )}
-    </>
+    </Box>
   );
 }
