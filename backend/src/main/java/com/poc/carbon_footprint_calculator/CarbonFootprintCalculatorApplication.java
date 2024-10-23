@@ -8,6 +8,6 @@ public class CarbonFootprintCalculatorApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CarbonFootprintCalculatorApplication.class, args);
-	}
+	} 
 
 }
