@@ -50,7 +50,10 @@ export default function FoodItemDropdown({
   };
 
   const handleKgChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setKg(event.target.value);
+    const val = event.target.value;
+    if (val && Number(val) >= 0) {
+      setKg(event.target.value);
+    }
   };
 
   const handleAddItem = () => {
@@ -103,6 +106,7 @@ export default function FoodItemDropdown({
               </Select>
             </FormControl>
           </Box>
+          
           <Box sx={{ margin: 2 }}>
             <TextField
               label="Kg"
