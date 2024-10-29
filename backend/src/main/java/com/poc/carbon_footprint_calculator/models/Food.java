@@ -9,17 +9,16 @@ import jakarta.persistence.Id;
 public class Food {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
-    private String category; // Protein, Carbs, Fat, Vegetables
-    private String foodItem; 
+    private String subCategory; // Protein, Carbs, Fat, Vegetables
+    private String item; 
     private int cost;
 
-    public void setFoodItem(String item) {
-        this.foodItem = item;
+    public void setItem(String item) {
+        this.item = item;
     }
 
-    public String getFoodItem() {
-        return this.foodItem;
+    public String getItem() {
+        return this.item;
     }
 
     public int getCost() {
@@ -38,11 +37,11 @@ public class Food {
         this.id = id;
     }
 
-    public String getCategory() {
-        return category;
+    public String getSubCategory() {
+        return subCategory;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setSubCategory(String category) {
+        this.subCategory = category;
     }
 }

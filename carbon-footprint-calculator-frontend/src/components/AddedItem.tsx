@@ -1,10 +1,6 @@
 import { Box, Button, IconButton, ListItem } from "@mui/material";
 import { Dispatch, SetStateAction } from "react";
-
-interface Item {
-  foodItem: string;
-  kg: number | string;
-}
+import { Item } from "../pages/FrontPage";
 
 interface AddedItemProps {
   items: Item[];
@@ -33,7 +29,7 @@ export default function AddedItem({ items, setItems }: AddedItemProps) {
               </IconButton>
             }
           >
-            {`${item.foodItem}: ${item.kg} kg`}
+            {`${item.itemName}: ${item.quantity} kg`}
           </Button>
         </ListItem>
       ))}

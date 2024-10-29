@@ -1,39 +1,34 @@
 package com.poc.carbon_footprint_calculator.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 
-public class ModelsReceived {
+public class ModelsReceived{
+    private List<Item> foods = List.of();
+    private List<Item> travels = List.of();
+    private List<Item> consumptions = List.of();
 
-    @JsonProperty("food")
-    private int food;
-
-    @JsonProperty("consumption")
-    private int consumption;
-
-    @JsonProperty("travel")
-    private int travel;
-
-    public int getFood() {
-        return food;
+    public List<Item> getFoods() {
+        return foods;
     }
 
-    public void setFood(int food) {
-        this.food = food;
+    public void setFoods(List<Item> foods) {
+        this.foods = foods;
     }
 
-    public int getConsumption() {
-        return consumption;
+    public List<Item> getTravels() {
+        return travels;
     }
 
-    public void setConsumption(int consumption) {
-        this.consumption = consumption;
+    public void setTravels(List<Item> travels) {
+        this.travels = travels;
     }
 
-    public int getTravel() {
-        return travel;
+    public List<Item> getConsumptions() {
+        return consumptions;
     }
 
-    public void setTravel(int travel) {
-        this.travel = travel;
+    public void setConsumptions(List<Item> consumptions) {
+        this.consumptions = consumptions;
     }
 }
+

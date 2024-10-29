@@ -1,52 +1,41 @@
 import React, { useState, useEffect } from "react";
-import {
-  Box,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Button,
-  SelectChangeEvent,
-} from "@mui/material";
+import { Box, Button } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import FoodItemDropdown from "../components/FoodItemDropdown";
+import ItemDropdown from "../components/ItemDropdown";
 import AddedItem from "../components/AddedItem";
 import "../App.css";
 
-interface Food {
+export interface Category {
   id: number;
   cost: number;
-  category: string;
-  foodItem: string;
+  subCategory: string;
+  item: string;
 }
 
-interface Consumption {
+// Format of data in the AddedItem component
+export interface Item {
+  category: string; //Food, Consumption or Travel
+  subCategory: string; //subcategories
   id: number;
-  cost: number;
-  category: string;
+  quantity: number;
+  itemName: string;
 }
 
-interface Travel {
-  id: number;
-  cost: number;
-  category: string;
-}
-
-interface Item {
-  foodItem: string;
-  kg: number | string;
-}
+type ResultType = {
+  [key: string]: Array<{ id: number; quantity: number }>;
+};
 
 const FrontPage: React.FC = () => {
-  const [food, setFood] = useState<Food[]>([]);
-  const [selectedFood, setSelectedFood] = useState<Food>();
+  const [food, setFood] = useState<Category[]>([]);
+  const [selectedFood, setSelectedFood] = useState<Category>();
+
+  const [consumption, setConsumption] = useState<Category[]>([]);
+  const [selectedConsumption, setSelectedConsumption] = useState<Category>();
+
+  const [travel, setTravel] = useState<Category[]>([]);
+  const [selectedTravel, setSelectedTravel] = useState<Category>();
+
   const [items, setItems] = useState<Item[]>([]);
-
-  const [consumptions, setConsumptions] = useState<Consumption[]>([]);
-  const [consumption, setConsumption] = useState<string>("");
-
-  const [travels, setTravels] = useState<Travel[]>([]);
-  const [travel, setTravel] = useState<string>("");
 
   const [result, setResult] = useState<number>(0);
 
@@ -55,7 +44,7 @@ const FrontPage: React.FC = () => {
   useEffect(() => {
     fetch(baseUrl + "/api/food")
       .then((response) => response.json())
-      .then((data: Food[]) => {
+      .then((data: Category[]) => {
         setFood(data);
       })
       .catch((error) => console.error("Error fetching food data:", error));
@@ -64,38 +53,42 @@ const FrontPage: React.FC = () => {
   useEffect(() => {
     fetch(baseUrl + "/api/travel")
       .then((response) => response.json())
-      .then((data: Travel[]) => setTravels(data))
+      .then((data: Category[]) => setTravel(data))
       .catch((error) => console.error("Error fetching travel data:", error));
   }, []);
 
   useEffect(() => {
     fetch(baseUrl + "/api/consumption")
       .then((response) => response.json())
-      .then((data: Consumption[]) => setConsumptions(data))
+      .then((data: Category[]) => setConsumption(data))
       .catch((error) => console.error("Error fetching food data:", error));
   }, []);
 
-  const handleChangeConsumption = (event: SelectChangeEvent<string>) => {
-    setConsumption(event.target.value as string);
-  };
-
-  const handleChangeTravel = (event: SelectChangeEvent<string>) => {
-    setTravel(event.target.value as string);
-  };
-
   const handleClick = () => {
-    //Post saved values from select to backend
+    const formattedData = items.reduce<ResultType>(
+      (acc: ResultType, item: Item) => {
+        if (!acc[item.category]) {
+          acc[item.category] = [];
+        }
+
+        acc[item.category].push({
+          id: item.id,
+          quantity: item.quantity,
+        });
+
+        return acc;
+      },
+      {}
+    );
+    console.log("Formatted data: ", formattedData);
+    // Post saved values from select to backend
     console.log("Food: ", food);
     fetch(baseUrl + "/api/calculate", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        food: selectedFood?.cost ?? 0, // selectedFood can be undefined, falls back to 0 in that case
-        consumption: parseInt(consumption),
-        travel: parseInt(travel),
-      }),
+      body: JSON.stringify(formattedData),
     })
       .then((response) => response.json())
       .then((data) => setResult(data))
@@ -111,51 +104,27 @@ const FrontPage: React.FC = () => {
       sx={{ minWidth: "100vh", padding: 2 }}
     >
       <h1 style={{ textAlign: "center" }}>What have you done today?</h1>
-      {/* <Grid container direction="row" size={12}> */}
       <Grid container direction="row" spacing={2} sx={{ width: "100%" }}>
-        {/* <Grid size={6}> */}
         <Grid size={{ xs: 6, md: 6 }}>
-          <FoodItemDropdown
+          <ItemDropdown
             data={food}
-            setSelectedFood={setSelectedFood}
+            setSelectedCategory={setSelectedFood}
             setItems={setItems}
+            category={"foods"}
           />
-          <Box sx={{ width: 100, margin: 2 }}>
-            <FormControl fullWidth>
-              <InputLabel>Consumption</InputLabel>
-              <Select
-                id="select-consumption"
-                value={consumption}
-                label="Consumption"
-                onChange={handleChangeConsumption}
-              >
-                {consumptions.map((consumption) => (
-                  <MenuItem key={consumption.id} value={consumption.cost}>
-                    {consumption.category}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Box>
-          <Box sx={{ width: 100, margin: 2 }}>
-            <FormControl fullWidth>
-              <InputLabel>Travel</InputLabel>
-              <Select
-                id="select-Travel"
-                value={travel}
-                label="Travel"
-                onChange={handleChangeTravel}
-              >
-                {travels.map((travel) => (
-                  <MenuItem key={travel.id} value={travel.cost}>
-                    {travel.category}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Box>
+          <ItemDropdown
+            data={travel}
+            setSelectedCategory={setSelectedTravel}
+            setItems={setItems}
+            category={"travels"}
+          />
+          <ItemDropdown
+            data={consumption}
+            setSelectedCategory={setSelectedConsumption}
+            setItems={setItems}
+            category={"consumptions"}
+          />
         </Grid>
-        {/* <Grid size={6} justifyContent="right"> */}
         <Grid size={{ xs: 6, md: 6 }}>
           <AddedItem items={items} setItems={setItems} />
         </Grid>

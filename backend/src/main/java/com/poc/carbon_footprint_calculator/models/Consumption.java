@@ -10,8 +10,8 @@ public class Consumption {
     
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
-    private String category;
+    private String subCategory;
+    private String item; 
     private int cost;
 
     public int getCost() {
@@ -30,12 +30,20 @@ public class Consumption {
         this.id = id;
     }
 
-    public String getCategory() {
-        return category;
+    public String getSubCategory() {
+        return subCategory;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setSubCategory(String category) {
+        this.subCategory = category;
+    }
+
+    public String getItem() {
+        return item;
+    }
+
+    public void setConsumptionItem(String item) {
+        this.item = item;
     }
 
 }

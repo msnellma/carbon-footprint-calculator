@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.poc.carbon_footprint_calculator.models.Consumption;
 import com.poc.carbon_footprint_calculator.models.Food;
+import com.poc.carbon_footprint_calculator.models.Item;
 import com.poc.carbon_footprint_calculator.models.ModelsReceived;
 import com.poc.carbon_footprint_calculator.models.Travel;
 import com.poc.carbon_footprint_calculator.repository.ConsumptionRepository;
@@ -38,14 +39,28 @@ public class CarbonCalculatorService {
     }
 
     public int calculateCost(ModelsReceived models) {
-        // Example calculation logic
-        int foodImpact = models.getFood() * 10; // Example calculation
-        int consumptionImpact = models.getConsumption() * 20; // Example calculation
-        int travelImpact = models.getTravel() * 30; // Example calculation
+        List<Item> foods = models.getFoods();
+        List<Item> travels = models.getTravels();
+        List<Item> consumptions = models.getConsumptions(); 
 
-        // Sum up the impacts
-        int totalImpact = foodImpact + consumptionImpact + travelImpact;
+        int totalImpact = 0;
+
+        for (Item food : foods) {
+            Food foodItem = foodRepository.findById(food.getId()).get();
+            totalImpact += foodItem.getCost() * food.getQuantity();
+        }   
+
+        for (Item travel : travels) {
+            Travel travelItem = travelRepository.findById(travel.getId()).get();
+            totalImpact += travelItem.getCost() * travel.getQuantity();
+        } 
+
+        for (Item consumption : consumptions) {
+            Consumption consumptionItem = consumptionRepository.findById(consumption.getId()).get();
+            totalImpact += consumptionItem.getCost() * consumption.getQuantity();
+        }   
+        
         return totalImpact;
     }
-
+ 
 }
