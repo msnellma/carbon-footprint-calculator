@@ -19,6 +19,7 @@ export interface Item {
   id: number;
   quantity: number;
   itemName: string;
+  unit: string;
 }
 
 type ResultType = {
@@ -111,18 +112,21 @@ const FrontPage: React.FC = () => {
             setSelectedCategory={setSelectedFood}
             setItems={setItems}
             category={"foods"}
+            unit={"g"}
           />
           <ItemDropdown
             data={travel}
             setSelectedCategory={setSelectedTravel}
             setItems={setItems}
             category={"travels"}
+            unit={"km"}
           />
           <ItemDropdown
             data={consumption}
             setSelectedCategory={setSelectedConsumption}
             setItems={setItems}
             category={"consumptions"}
+            unit={"pc"}
           />
         </Grid>
         <Grid size={{ xs: 6, md: 6 }}>

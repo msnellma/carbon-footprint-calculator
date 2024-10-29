@@ -24,10 +24,12 @@ interface FoodItemDropdownProps {
         id: number;
         quantity: number;
         itemName: string;
+        unit: string;
       }>
     >
   >;
   category: string;
+  unit: string;
 }
 
 export default function FoodItemDropdown({
@@ -35,6 +37,7 @@ export default function FoodItemDropdown({
   setSelectedCategory,
   setItems,
   category,
+  unit,
 }: FoodItemDropdownProps) {
   const [subCategory, setSubCategory] = useState<string>("");
   const [id, setId] = useState<number>(0);
@@ -66,7 +69,7 @@ export default function FoodItemDropdown({
     if (itemName && quantity !== 0) {
       setItems((prevItems) => [
         ...prevItems,
-        { category, subCategory, id, quantity, itemName },
+        { category, subCategory, id, quantity, itemName, unit },
       ]); // Update items in parent
       setQuantity(0); // Reset kg input after adding
     }
@@ -116,7 +119,7 @@ export default function FoodItemDropdown({
 
           <Box sx={{ margin: 2 }}>
             <TextField
-              label="Kg"
+              label={unit}
               type="number"
               value={quantity || ""}
               onChange={handleKgChange}

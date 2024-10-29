@@ -11,10 +11,18 @@ export default function AddedItem({ items, setItems }: AddedItemProps) {
   const handleDelete = (index: number) => {
     setItems((prevItems) => prevItems.filter((_, i) => i !== index));
   };
+  const handleClearList = () => {
+    setItems([]);
+  }
   return (
-    <Box flex={1} sx={{ marginLeft: 2 }}>
+    <>
+    <Box flex={1} sx={{ marginLeft: 8 }} display="flex" flexDirection="column" alignItems="center">
       {items.map((item, index) => (
-        <ListItem key={index}>
+        <ListItem key={index} sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}>
           <Button
             variant="contained"
             fullWidth
@@ -29,10 +37,12 @@ export default function AddedItem({ items, setItems }: AddedItemProps) {
               </IconButton>
             }
           >
-            {`${item.itemName}: ${item.quantity} kg`}
+            {`${item.itemName}: ${item.quantity} ${item.unit}`}
           </Button>
         </ListItem>
       ))}
+      {items.length > 0 && <Button sx={{ alignSelf: "center" }} variant="outlined" onClick={handleClearList}>Clear list</Button>}
     </Box>
+    </>
   );
 }
