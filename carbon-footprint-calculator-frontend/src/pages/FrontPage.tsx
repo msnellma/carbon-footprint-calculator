@@ -7,9 +7,10 @@ import "../App.css";
 
 export interface Category {
   id: number;
-  cost: number;
+  catogry: string;
   subCategory: string;
   item: string;
+  cost: number;
 }
 
 // Format of data in the AddedItem component
@@ -66,6 +67,7 @@ const FrontPage: React.FC = () => {
   }, []);
 
   const handleClick = () => {
+    console.log(items)
     const formattedData = items.reduce<ResultType>(
       (acc: ResultType, item: Item) => {
         if (!acc[item.category]) {

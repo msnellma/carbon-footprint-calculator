@@ -1,6 +1,6 @@
 package com.poc.carbon_footprint_calculator.models;
 
-public class Item { 
+public class ReceivedItem { 
     private int id;
     private int quantity;
 

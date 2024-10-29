@@ -1,56 +1,56 @@
 INSERT INTO person (id, name) VALUES (1, 'Markus');
 INSERT INTO person (id, name) VALUES (2, 'Katia');
 
-INSERT INTO consumption (id, sub_category, item, cost) VALUES (1, 'Furniture', 'Chair', 100);
-INSERT INTO consumption (id, sub_category, item, cost) VALUES (2, 'Furniture', 'Table', 100);
-INSERT INTO consumption (id, sub_category, item, cost) VALUES (3, 'Furniture', 'Sofa', 100);
-INSERT INTO consumption (id, sub_category, item, cost) VALUES (4, 'Furniture', 'Cupboard', 100);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (1, 'Consumption', 'Furniture', 'Chair', 100);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (2, 'Consumption', 'Furniture', 'Table', 100);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (3, 'Consumption', 'Furniture', 'Sofa', 100);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (4, 'Consumption', 'Furniture', 'Cupboard', 100);
 
-INSERT INTO consumption (id, sub_category, item, cost) VALUES (5, 'Clothes', 'Top', 20);
-INSERT INTO consumption (id, sub_category, item, cost) VALUES (6, 'Clothes', 'Bottom', 20);
-INSERT INTO consumption (id, sub_category, item, cost) VALUES (7, 'Clothes', 'Accessorie', 20);
-INSERT INTO consumption (id, sub_category, item, cost) VALUES (8, 'Clothes', 'Shoes', 20);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (5, 'Consumption', 'Clothes', 'Top', 100);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (6, 'Consumption', 'Clothes', 'Bottom', 100);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (7, 'Consumption', 'Clothes', 'Accessorie', 100);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (8, 'Consumption', 'Clothes', 'Shoes', 100);
 
-INSERT INTO consumption (id, sub_category, item, cost) VALUES (9, 'Hygiene products', 'Deoderant', 10);
-INSERT INTO consumption (id, sub_category, item, cost) VALUES (10, 'Hygiene products', 'Perfume', 10);
-INSERT INTO consumption (id, sub_category, item, cost) VALUES (11, 'Hygiene products', 'Shaving', 10);
-INSERT INTO consumption (id, sub_category, item, cost) VALUES (12, 'Hygiene products', 'Toothbrush', 10);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (9, 'Consumption', 'Hygiene products', 'Deoderant', 100);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (10, 'Consumption', 'Hygiene products', 'Perfume', 100);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (11, 'Consumption', 'Hygiene products', 'Shaving', 100);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (12, 'Consumption', 'Hygiene products', 'Toothbrush', 100);
 
-INSERT INTO consumption (id, sub_category, item, cost) VALUES (13, 'Electronics', 'Computer', 200);
-INSERT INTO consumption (id, sub_category, item, cost) VALUES (14, 'Electronics', 'TV', 200);
-INSERT INTO consumption (id, sub_category, item, cost) VALUES (15, 'Electronics', 'Phone', 200);
-INSERT INTO consumption (id, sub_category, item, cost) VALUES (16, 'Electronics', 'Headphones', 200);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (13, 'Consumption', 'Electronics', 'Computer', 100);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (14, 'Consumption', 'Electronics', 'TV', 100);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (15, 'Consumption', 'Electronics', 'Phone', 100);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (16, 'Consumption', 'Electronics', 'Headphones', 100);
 
-INSERT INTO travel (id, sub_category, item, cost) VALUES (1, 'Bike', 'Electric', 10);
-INSERT INTO travel (id, sub_category, item, cost) VALUES (2, 'Bike', 'None', 50);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (17, 'Travel', 'Bike', 'Electric', 10);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (18, 'Travel', 'Bike', 'None', 1);
 
-INSERT INTO travel (id, sub_category, item, cost) VALUES (3, 'Bus', 'Electric', 15);
-INSERT INTO travel (id, sub_category, item, cost) VALUES (4, 'Bus', 'Diesel', 20);
-INSERT INTO travel (id, sub_category, item, cost) VALUES (5, 'Bus', 'Gasoline', 25);
-INSERT INTO travel (id, sub_category, item, cost) VALUES (6, 'Bus', 'Hybrid', 20);
-INSERT INTO travel (id, sub_category, item, cost) VALUES (7, 'Bus', 'Bio Gas', 30);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (19, 'Travel', 'Bus', 'Electric', 15);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (20, 'Travel', 'Bus', 'Diesel', 30);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (21, 'Travel', 'Bus', 'Gasoline', 35);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (22, 'Travel', 'Bus', 'Hybrid', 20);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (23, 'Travel', 'Bus', 'Bio gas', 25);
 
-INSERT INTO travel (id, sub_category, item, cost) VALUES (8, 'Car', 'Electric', 50);
-INSERT INTO travel (id, sub_category, item, cost) VALUES (9, 'Car', 'Diesel', 60);
-INSERT INTO travel (id, sub_category, item, cost) VALUES (10, 'Car', 'Gasoline', 70);
-INSERT INTO travel (id, sub_category, item, cost) VALUES (11, 'Car', 'Hybrid', 60);
-INSERT INTO travel (id, sub_category, item, cost) VALUES (12, 'Car', 'Bio Gas', 80);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (24, 'Travel', 'Car', 'Electric', 30);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (25, 'Travel', 'Car', 'Diesel', 60);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (26, 'Travel', 'Car', 'Gasoline', 70);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (27, 'Travel', 'Car', 'Hybrid', 45);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (28, 'Travel', 'Car', 'Bio gas', 50);
 
-INSERT INTO travel (id, sub_category, item, cost) VALUES (13, 'Walk', 'None', 5);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (29, 'Travel', 'Walk', 'None', 1);
 
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (30, 'Food', 'Carbs', 'Potatoes', 10);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (31, 'Food', 'Carbs', 'Pasta', 12);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (32, 'Food', 'Carbs', 'Rice', 15);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (33, 'Food', 'Carbs', 'Bread', 5);
 
-INSERT INTO food (id, sub_category, item, cost) VALUES (1, 'Carbs', 'Potatoes', 10);
-INSERT INTO food (id, sub_category, item, cost) VALUES (2, 'Carbs', 'Pasta', 15);
-INSERT INTO food (id, sub_category, item, cost) VALUES (3, 'Carbs', 'Rice', 20);
-INSERT INTO food (id, sub_category, item, cost) VALUES (4, 'Carbs', 'Bread', 10);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (34, 'Food', 'Protein', 'Beef', 100);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (35, 'Food', 'Protein', 'Chicken', 35);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (36, 'Food', 'Protein', 'Pork', 60);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (37, 'Food', 'Protein', 'Tofu', 15);
 
-INSERT INTO food (id, sub_category, item, cost) VALUES (5, 'Protein', 'Beef', 100);
-INSERT INTO food (id, sub_category, item, cost) VALUES (6, 'Protein', 'Chicken', 35);
-INSERT INTO food (id, sub_category, item, cost) VALUES (7, 'Protein', 'Pork', 60);
-
-INSERT INTO food (id, sub_category, item, cost) VALUES (8, 'Vegetables', 'Carrots', 5);
-INSERT INTO food (id, sub_category, item, cost) VALUES (9, 'Vegetables', 'Salad', 7);
-INSERT INTO food (id, sub_category, item, cost) VALUES (10, 'Vegetables', 'Kale', 3);
-INSERT INTO food (id, sub_category, item, cost) VALUES (11, 'Vegetables', 'Corn', 12);
-INSERT INTO food (id, sub_category, item, cost) VALUES (12, 'Vegetables', 'Tomatoes', 10);
-INSERT INTO food (id, sub_category, item, cost) VALUES (13, 'Vegetables', 'Cucumber', 5);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (38, 'Food', 'Vegetables', 'Carrots', 5);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (39, 'Food', 'Vegetables', 'Salad', 7);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (40, 'Food', 'Vegetables', 'Kale', 3);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (41, 'Food', 'Vegetables', 'Corn', 12);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (42, 'Food', 'Vegetables', 'Tomatoes', 8);
+INSERT INTO carbon_item(id, category, sub_category, item, cost) VALUES (43, 'Food', 'Vegetables', 'Cucumber', 5);

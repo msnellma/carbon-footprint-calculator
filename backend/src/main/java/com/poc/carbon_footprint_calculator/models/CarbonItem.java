@@ -5,45 +5,46 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+
 @Entity
-public class Travel {
+public class CarbonItem {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    private String category;
     private String subCategory;
-    private String item;
+    private String item; 
     private int cost;
-
-    public int getCost() {
-        return cost;
-    }
-
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
 
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-
+    public String getCategory() {
+        return category;
+    }
+    public void setCategory(String category) {
+        this.category = category;
+    }
     public String getSubCategory() {
         return subCategory;
     }
-
-    public void setSubCategory(String category) {
-        this.subCategory = category;
+    public void setSubCategory(String subCategory) {
+        this.subCategory = subCategory;
     }
-
     public String getItem() {
         return item;
     }
-
     public void setItem(String item) {
         this.item = item;
+    }
+    public int getCost() {
+        return cost;
+    }
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
 }

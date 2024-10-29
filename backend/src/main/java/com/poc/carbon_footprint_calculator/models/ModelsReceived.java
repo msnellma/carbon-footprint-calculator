@@ -3,31 +3,31 @@ package com.poc.carbon_footprint_calculator.models;
 import java.util.List;
 
 public class ModelsReceived{
-    private List<Item> foods = List.of();
-    private List<Item> travels = List.of();
-    private List<Item> consumptions = List.of();
+    private List<ReceivedItem> foods = List.of();
+    private List<ReceivedItem> travels = List.of();
+    private List<ReceivedItem> consumptions = List.of();
 
-    public List<Item> getFoods() {
+    public List<ReceivedItem> getFoods() {
         return foods;
     }
 
-    public void setFoods(List<Item> foods) {
+    public void setFoods(List<ReceivedItem> foods) {
         this.foods = foods;
     }
 
-    public List<Item> getTravels() {
+    public List<ReceivedItem> getTravels() {
         return travels;
     }
 
-    public void setTravels(List<Item> travels) {
+    public void setTravels(List<ReceivedItem> travels) {
         this.travels = travels;
     }
 
-    public List<Item> getConsumptions() {
+    public List<ReceivedItem> getConsumptions() {
         return consumptions;
     }
 
-    public void setConsumptions(List<Item> consumptions) {
+    public void setConsumptions(List<ReceivedItem> consumptions) {
         this.consumptions = consumptions;
     }
 }

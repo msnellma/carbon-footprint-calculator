@@ -5,58 +5,48 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.poc.carbon_footprint_calculator.models.Consumption;
-import com.poc.carbon_footprint_calculator.models.Food;
-import com.poc.carbon_footprint_calculator.models.Item;
+import com.poc.carbon_footprint_calculator.models.CarbonItem;
+import com.poc.carbon_footprint_calculator.models.ReceivedItem;
 import com.poc.carbon_footprint_calculator.models.ModelsReceived;
-import com.poc.carbon_footprint_calculator.models.Travel;
-import com.poc.carbon_footprint_calculator.repository.ConsumptionRepository;
-import com.poc.carbon_footprint_calculator.repository.FoodRepository;
-import com.poc.carbon_footprint_calculator.repository.TravelRepository;
+import com.poc.carbon_footprint_calculator.repository.CarbonItemRepository;
 
 @Service
 public class CarbonCalculatorService {
 
     @Autowired
-    private ConsumptionRepository consumptionRepository;
+    private CarbonItemRepository carbonItemRepository;
 
-    @Autowired
-    private FoodRepository foodRepository;
-
-    @Autowired
-    private TravelRepository travelRepository; 
-
-    public List<Food> getAllFoods() {
-        return foodRepository.findAll();
+    public List<CarbonItem> getAllFoods() {
+        return carbonItemRepository.findByCategory("Food");
     }
 
-    public List<Travel> getAllTravels() {
-        return travelRepository.findAll();
+    public List<CarbonItem> getAllTravels() {
+        return carbonItemRepository.findByCategory("Travel");
     }
 
-    public List<Consumption> getAllConsumptions() {
-        return consumptionRepository.findAll();
+    public List<CarbonItem> getAllConsumptions() {
+        return carbonItemRepository.findByCategory("Consumption");
     }
 
     public int calculateCost(ModelsReceived models) {
-        List<Item> foods = models.getFoods();
-        List<Item> travels = models.getTravels();
-        List<Item> consumptions = models.getConsumptions(); 
+        List<ReceivedItem> foods = models.getFoods();
+        List<ReceivedItem> travels = models.getTravels();
+        List<ReceivedItem> consumptions = models.getConsumptions(); 
 
         int totalImpact = 0;
 
-        for (Item food : foods) {
-            Food foodItem = foodRepository.findById(food.getId()).get();
+        for (ReceivedItem food : foods) {
+            CarbonItem foodItem = carbonItemRepository.findById(food.getId()).get();
             totalImpact += foodItem.getCost() * food.getQuantity();
         }   
 
-        for (Item travel : travels) {
-            Travel travelItem = travelRepository.findById(travel.getId()).get();
+        for (ReceivedItem travel : travels) {
+            CarbonItem travelItem = carbonItemRepository.findById(travel.getId()).get();
             totalImpact += travelItem.getCost() * travel.getQuantity();
         } 
 
-        for (Item consumption : consumptions) {
-            Consumption consumptionItem = consumptionRepository.findById(consumption.getId()).get();
+        for (ReceivedItem consumption : consumptions) {
+            CarbonItem consumptionItem = carbonItemRepository.findById(consumption.getId()).get();
             totalImpact += consumptionItem.getCost() * consumption.getQuantity();
         }   
         

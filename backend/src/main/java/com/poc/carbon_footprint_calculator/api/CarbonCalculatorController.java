@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poc.carbon_footprint_calculator.models.Consumption;
-import com.poc.carbon_footprint_calculator.models.Food;
+import com.poc.carbon_footprint_calculator.models.CarbonItem;
 import com.poc.carbon_footprint_calculator.models.ModelsReceived;
-import com.poc.carbon_footprint_calculator.models.Travel;
 import com.poc.carbon_footprint_calculator.service.CarbonCalculatorService;
 
 @RestController
@@ -25,17 +23,17 @@ public class CarbonCalculatorController {
     private CarbonCalculatorService service;
 
     @GetMapping("/food")
-    public List<Food> getAllFoods() {
+    public List<CarbonItem> getAllFoods() {
         return service.getAllFoods();
     }
 
     @GetMapping("/travel")
-    public List<Travel> getAllTravels() {
+    public List<CarbonItem> getAllTravels() {
         return service.getAllTravels();
     }
 
     @GetMapping("/consumption")
-    public List<Consumption> getAllConsumptions() {
+    public List<CarbonItem> getAllConsumptions() {
         return service.getAllConsumptions();
     }
 
