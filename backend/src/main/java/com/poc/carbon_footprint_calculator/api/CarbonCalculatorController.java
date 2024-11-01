@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.poc.carbon_footprint_calculator.models.CarbonItem;
@@ -22,19 +24,9 @@ public class CarbonCalculatorController {
     @Autowired
     private CarbonCalculatorService service;
 
-    @GetMapping("/food")
-    public List<CarbonItem> getAllFoods() {
-        return service.getAllFoods();
-    }
-
-    @GetMapping("/travel")
-    public List<CarbonItem> getAllTravels() {
-        return service.getAllTravels();
-    }
-
-    @GetMapping("/consumption")
-    public List<CarbonItem> getAllConsumptions() {
-        return service.getAllConsumptions();
+    @GetMapping("/{category}")
+    public List<CarbonItem> getItemsFromCategory(@PathVariable String category) {
+        return service.getItemsByCategory(category);
     }
 
     @PostMapping("/calculate")

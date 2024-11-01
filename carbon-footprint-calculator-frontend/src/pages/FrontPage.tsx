@@ -23,10 +23,6 @@ export interface Item {
   unit: string;
 }
 
-type ResultType = {
-  [key: string]: Array<{ id: number; quantity: number }>;
-};
-
 const FrontPage: React.FC = () => {
   const [food, setFood] = useState<Category[]>([]);
   const [selectedFood, setSelectedFood] = useState<Category>();
@@ -44,7 +40,7 @@ const FrontPage: React.FC = () => {
   const baseUrl = "http://localhost:8080";
 
   useEffect(() => {
-    fetch(baseUrl + "/api/food")
+    fetch(baseUrl + "/api/Food")
       .then((response) => response.json())
       .then((data: Category[]) => {
         setFood(data);
@@ -53,14 +49,14 @@ const FrontPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    fetch(baseUrl + "/api/travel")
+    fetch(baseUrl + "/api/Travel")
       .then((response) => response.json())
       .then((data: Category[]) => setTravel(data))
       .catch((error) => console.error("Error fetching travel data:", error));
   }, []);
 
   useEffect(() => {
-    fetch(baseUrl + "/api/consumption")
+    fetch(baseUrl + "/api/Consumption")
       .then((response) => response.json())
       .then((data: Category[]) => setConsumption(data))
       .catch((error) => console.error("Error fetching food data:", error));
@@ -68,21 +64,9 @@ const FrontPage: React.FC = () => {
 
   const handleClick = () => {
     console.log(items)
-    const formattedData = items.reduce<ResultType>(
-      (acc: ResultType, item: Item) => {
-        if (!acc[item.category]) {
-          acc[item.category] = [];
-        }
-
-        acc[item.category].push({
-          id: item.id,
-          quantity: item.quantity,
-        });
-
-        return acc;
-      },
-      {}
-    );
+    const formattedData = {
+      items: items.map(({id, quantity}) => ({id, quantity}))
+    }
     console.log("Formatted data: ", formattedData);
     // Post saved values from select to backend
     console.log("Food: ", food);
