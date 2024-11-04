@@ -27,6 +27,7 @@ export default function AddedItem({ items, setItems }: AddedItemProps) {
             variant="contained"
             fullWidth
             sx={{ maxWidth: 200 }}
+            style={{ fontSize: '12px' }}
             endIcon={
               <IconButton
                 edge="end"
@@ -37,7 +38,7 @@ export default function AddedItem({ items, setItems }: AddedItemProps) {
               </IconButton>
             }
           >
-            {`${item.itemName}: ${item.quantity} ${item.unit}`}
+            {`${item.subCategory} ${item.item}: ${item.quantity} ${item.unit}`}
           </Button>
         </ListItem>
       ))}

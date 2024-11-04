@@ -23,6 +23,10 @@ public class CarbonCalculatorService {
         return carbonItemRepository.findByCategory(category);
     }
 
+    public List<CarbonItem> getAllItems() {
+        return carbonItemRepository.findAll();
+    }
+
     public int calculateCost(ModelsReceived models) {
         Map<Integer, Integer> itemQuantities = models.getItems().stream()
         .collect(Collectors.toMap(ReceivedItem::getId, ReceivedItem::getQuantity, Integer::sum));

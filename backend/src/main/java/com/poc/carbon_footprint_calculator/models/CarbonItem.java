@@ -15,6 +15,7 @@ public class CarbonItem {
     private String subCategory;
     private String item; 
     private int cost;
+    private String unit;
 
     public int getId() {
         return id;
@@ -45,6 +46,12 @@ public class CarbonItem {
     }
     public void setCost(int cost) {
         this.cost = cost;
+    }
+    public String getUnit() {
+        return unit;
+    }
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
 }

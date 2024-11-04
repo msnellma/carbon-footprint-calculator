@@ -5,33 +5,23 @@ import ItemDropdown from "../components/ItemDropdown";
 import AddedItem from "../components/AddedItem";
 import "../App.css";
 
-export interface Category {
+export interface CarbonItem {
   id: number;
-  catogry: string;
+  category: string;
   subCategory: string;
   item: string;
-  cost: number;
-}
-
-// Format of data in the AddedItem component
-export interface Item {
-  category: string; //Food, Consumption or Travel
-  subCategory: string; //subcategories
-  id: number;
-  quantity: number;
-  itemName: string;
   unit: string;
 }
 
+// Format of data in the AddedItem component
+export interface Item extends CarbonItem {
+  quantity: number;
+}
+
 const FrontPage: React.FC = () => {
-  const [food, setFood] = useState<Category[]>([]);
-  const [selectedFood, setSelectedFood] = useState<Category>();
 
-  const [consumption, setConsumption] = useState<Category[]>([]);
-  const [selectedConsumption, setSelectedConsumption] = useState<Category>();
-
-  const [travel, setTravel] = useState<Category[]>([]);
-  const [selectedTravel, setSelectedTravel] = useState<Category>();
+  const [carbonItems, setCarbonItems] = useState<CarbonItem[]>([]);
+  // const [selectedCategory, setSelectedCategory] = useState<CarbonItem>();
 
   const [items, setItems] = useState<Item[]>([]);
 
@@ -40,36 +30,20 @@ const FrontPage: React.FC = () => {
   const baseUrl = "http://localhost:8080";
 
   useEffect(() => {
-    fetch(baseUrl + "/api/Food")
+    fetch(baseUrl + "/api/allItems")
       .then((response) => response.json())
-      .then((data: Category[]) => {
-        setFood(data);
-      })
-      .catch((error) => console.error("Error fetching food data:", error));
+      .then((data: CarbonItem[]) => {setCarbonItems(data); console.log("Carbon items fetched are " + carbonItems)})
+      .catch((error) => console.error("Error fetching result data:", error));
   }, []);
 
-  useEffect(() => {
-    fetch(baseUrl + "/api/Travel")
-      .then((response) => response.json())
-      .then((data: Category[]) => setTravel(data))
-      .catch((error) => console.error("Error fetching travel data:", error));
-  }, []);
 
-  useEffect(() => {
-    fetch(baseUrl + "/api/Consumption")
-      .then((response) => response.json())
-      .then((data: Category[]) => setConsumption(data))
-      .catch((error) => console.error("Error fetching food data:", error));
-  }, []);
+  const uniqueCategories = Array.from(new Set(carbonItems.map(item => item.category)));
 
   const handleClick = () => {
     console.log(items)
     const formattedData = {
       items: items.map(({id, quantity}) => ({id, quantity}))
     }
-    console.log("Formatted data: ", formattedData);
-    // Post saved values from select to backend
-    console.log("Food: ", food);
     fetch(baseUrl + "/api/calculate", {
       method: "POST",
       headers: {
@@ -93,28 +67,17 @@ const FrontPage: React.FC = () => {
       <h1 style={{ textAlign: "center" }}>What have you done today?</h1>
       <Grid container direction="row" spacing={2} sx={{ width: "100%" }}>
         <Grid size={{ xs: 6, md: 6 }}>
-          <ItemDropdown
-            data={food}
-            setSelectedCategory={setSelectedFood}
-            setItems={setItems}
-            category={"foods"}
-            unit={"g"}
-          />
-          <ItemDropdown
-            data={travel}
-            setSelectedCategory={setSelectedTravel}
-            setItems={setItems}
-            category={"travels"}
-            unit={"km"}
-          />
-          <ItemDropdown
-            data={consumption}
-            setSelectedCategory={setSelectedConsumption}
-            setItems={setItems}
-            category={"consumptions"}
-            unit={"pc"}
-          />
-        </Grid>
+        {uniqueCategories.map((category) => (
+            <ItemDropdown
+              key={category}
+              data={carbonItems.filter(item => item.category === category)}
+              setItems={setItems}
+              category={category}
+              unit={carbonItems.find(item => item.category === category)?.unit || "unit"}
+            />
+          ))
+        }
+        </Grid>        
         <Grid size={{ xs: 6, md: 6 }}>
           <AddedItem items={items} setItems={setItems} />
         </Grid>

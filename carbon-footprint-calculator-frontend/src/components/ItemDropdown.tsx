@@ -11,54 +11,42 @@ import { useState } from "react";
 import { Dispatch, SetStateAction } from "react";
 import TextField from "@mui/material/TextField";
 import "../App.css";
-import { Category } from "../pages/FrontPage";
+import { CarbonItem, Item } from "../pages/FrontPage";
 
 interface FoodItemDropdownProps {
-  data: Category[];
-  setSelectedCategory: Dispatch<SetStateAction<Category | undefined>>;
-  setItems: Dispatch<
-    SetStateAction<
-      Array<{
-        category: string;
-        subCategory: string;
-        id: number;
-        quantity: number;
-        itemName: string;
-        unit: string;
-      }>
-    >
-  >;
+  data: CarbonItem[];
+  setItems: Dispatch<SetStateAction<Item[]>>;
   category: string;
   unit: string;
 }
 
 export default function FoodItemDropdown({
   data,
-  setSelectedCategory,
   setItems,
   category,
   unit,
 }: FoodItemDropdownProps) {
+  // const [selectedCategory, setSelectedCategory] = useState<CarbonItem>();
   const [subCategory, setSubCategory] = useState<string>("");
   const [id, setId] = useState<number>(0);
-  const [itemName, setItemName] = useState<string>("");
+  const [item, setItem] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(0);
 
   const handleChange = (event: SelectChangeEvent<string>) => {
+    console.log(data);
     setSubCategory(event.target.value);
-    setItemName("");
+    setItem("");
   };
 
   const handleChangeItem = (event: SelectChangeEvent<string>) => {
-    setItemName(event.target.value);
+    setItem(event.target.value);
     const selectedObject = data.find(
       (item) => item.item === event.target.value
     );
     setId(selectedObject?.id || 0);
-    setSelectedCategory(selectedObject);
   };
 
-  const handleKgChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUnitChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const val = event.target.value;
     if (val && Number(val) >= 0) {
       setQuantity(Number(val));
@@ -66,10 +54,10 @@ export default function FoodItemDropdown({
   };
 
   const handleAddItem = () => {
-    if (itemName && quantity !== 0) {
+    if (item && quantity !== 0) {
       setItems((prevItems) => [
         ...prevItems,
-        { category, subCategory, id, quantity, itemName, unit },
+        { category, subCategory, id, quantity, item, unit },
       ]); // Update items in parent
       setQuantity(0); // Reset kg input after adding
     }
@@ -103,7 +91,7 @@ export default function FoodItemDropdown({
               <InputLabel>{subCategory}</InputLabel>
               <Select
                 id={`select-${category}-item`}
-                value={itemName || ""}
+                value={item || ""}
                 onChange={handleChangeItem}
               >
                 {data
@@ -122,7 +110,7 @@ export default function FoodItemDropdown({
               label={unit}
               type="number"
               value={quantity || ""}
-              onChange={handleKgChange}
+              onChange={handleUnitChange}
               fullWidth
               sx={{ width: 70 }}
             />

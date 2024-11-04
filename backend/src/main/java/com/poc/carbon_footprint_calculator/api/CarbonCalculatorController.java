@@ -29,6 +29,11 @@ public class CarbonCalculatorController {
         return service.getItemsByCategory(category);
     }
 
+    @GetMapping("/allItems")
+    public List<CarbonItem> getAllItems() {
+        return service.getAllItems();
+    }
+
     @PostMapping("/calculate")
     public int calculateCost(@RequestBody ModelsReceived models) {
         return service.calculateCost(models);
