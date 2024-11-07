@@ -4,6 +4,11 @@ public class ReceivedItem {
     private int id;
     private int quantity;
 
+    public ReceivedItem(int id, int quantity) {
+        this.id = id;
+        this.quantity = quantity;
+    }
+
     public int getId() {
         return id;
     }

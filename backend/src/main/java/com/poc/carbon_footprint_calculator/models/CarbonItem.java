@@ -17,6 +17,18 @@ public class CarbonItem {
     private int cost;
     private String unit;
 
+    public CarbonItem(int id, String category, String subCategory, String item, int cost, String unit) {
+        this.id = id;
+        this.category = category;
+        this.subCategory = subCategory;
+        this.item = item;
+        this.cost = cost;
+        this.unit = unit;
+    }
+
+    // Needs empty default constructor to deserialize JSON in testing
+    public CarbonItem() {};
+    
     public int getId() {
         return id;
     }
