@@ -16,6 +16,7 @@ import com.poc.carbon_footprint_calculator.models.CarbonItem;
 import com.poc.carbon_footprint_calculator.models.ModelsReceived;
 import com.poc.carbon_footprint_calculator.service.CarbonCalculatorService;
 
+// TODO: Implement POST request for Controller for better testing
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:5173") // Put as environment variable in application.properties
